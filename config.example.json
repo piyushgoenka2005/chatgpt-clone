@@ -1,0 +1,17 @@
+{
+    "site_config": {
+        "host": "0.0.0.0",
+        "port": 1338,
+        "debug": false
+    },
+    "openai_key": "YOUR_OPENAI_API_KEY",
+    "openai_api_base": "https://api.openai.com",
+    "proxy": {
+        "enable": false,
+        "http": "127.0.0.1:7890",
+        "https": "127.0.0.1:7890"
+    },
+    "mongo_uri": "mongodb+srv://<username>:<password>@cluster.mongodb.net/?retryWrites=true&w=majority",
+    "mongo_db": "chatgpt_clone",
+    "secret_key": "your-secret-key-here"
+}

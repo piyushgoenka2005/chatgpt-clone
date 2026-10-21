@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Next-Generation ChatGPT Clone powered by OpenAI GPT-4o mini and MongoDB">
+    <meta property="og:title" content="ChatGPT">
+    <meta property="og:description" content="Intelligent conversation powered by GPT-4o mini">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/site.webmanifest">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- HighlightJS -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@latest/dist/markdown-it.min.js"></script>
+    <link rel="stylesheet"
+        href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/styles/base16/dracula.min.css">
+    <script src="/assets/js/highlight.min.js"></script>
+    <script src="/assets/js/highlightjs-copy.min.js"></script>
+
+
+    <script>
+        window.conversation_id = `{{chat_id}}`;
+        window.current_user_email = `{{user_email}}`;
+        window.current_user_name = `{{user_name}}`;
+    </script>
+    <script src="/assets/js/chat.js?v=8" defer></script>
+    <title>ChatGPT • GPT-4o mini</title>
+</head>
+
+<body>
+    <!-- Ambient Dynamic Lighting Backgrounds -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper">
+            <div class="box conversations">
+                <div class="sidebar-header">
+                    <div class="brand">
+                        <div class="brand-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
+                                <path
+                                    d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1683a.071.071 0 0 1 .038.052v5.5826a4.5045 4.5045 0 0 1-4.4945 4.4947zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1683a.0757.0757 0 0 1-.071 0l-4.8303-2.7866A4.504 4.504 0 0 1 2.3408 7.8956zm16.0993 3.8558L12.5973 8.3829l2.0201-1.1683a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.388-.6813zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.407 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.6608v.0033zm-7.0006 1.543l-3.3685-1.9442 3.3685-1.9442 3.3685 1.9442z" />
+                            </svg>
+                        </div>
+                        <div class="brand-text">
+                            <span class="brand-title">ChatGPT</span>
+                            <span class="brand-tag">4o mini</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top">
+                    <button class="new_convo" onclick="new_conversation()">
+                        <div class="new_convo_content">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>New Chat</span>
+                        </div>
+                        <kbd class="shortcut">Ctrl K</kbd>
+                    </button>
+                    <div class="convo-section-label">Your Chats</div>
+                    <div class="spinner"></div>
+                </div>
+
+                <div class="bottom_buttons">
+                    <button class="clear-btn" onclick="delete_conversations()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                        <span>Clear All Chats</span>
+                    </button>
+
+                    <!-- User Account Badge & Logout -->
+                    <div class="user-account-bar">
+                        <div class="user-info-pill">
+                            <div class="user-avatar-small">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f8fafc"
+                                    stroke-width="2">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </div>
+                            <span class="user-email-text" title="{{user_email}}">{{user_name if user_name else
+                                user_email}}</span>
+                        </div>
+                        <button class="logout-btn" onclick="handleLogout()" title="Sign out of account">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="system-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">MongoDB Synced &bull; Online</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="conversation disable-scrollbars">
+            <!-- Top App Bar -->
+            <header class="chat-header">
+                <button class="mobile-sidebar" aria-label="Toggle Sidebar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                </button>
+
+                <div class="header-model-pill">
+                    <div class="model-status-dot"></div>
+                    <span class="model-name">GPT-4o mini</span>
+                </div>
+
+                <div class="header-controls">
+                    <!-- Web Search Toggle -->
+                    <div class="field switch-field" title="Toggle DuckDuckGo Web Access">
+                        <input type="checkbox" id="switch" />
+                        <label for="switch"></label>
+                        <span class="about">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg>
+                            Web Access
+                        </span>
+                    </div>
+
+                    <!-- Hidden/Preserved Model Select for chat.js compatibility -->
+                    <div class="field model-field-hidden">
+                        <select name="model" id="model">
+                            <option value="gpt-4o-mini" selected>gpt-4o-mini</option>
+                        </select>
+                    </div>
+
+                    <!-- Persona / System Prompt Selector -->
+                    <div class="field select-field">
+                        <span class="select-icon">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="4" y1="21" x2="4" y2="14" />
+                                <line x1="4" y1="10" x2="4" y2="3" />
+                                <line x1="12" y1="21" x2="12" y2="12" />
+                                <line x1="12" y1="8" x2="12" y2="3" />
+                                <line x1="20" y1="21" x2="20" y2="16" />
+                                <line x1="20" y1="12" x2="20" y2="3" />
+                                <line x1="1" y1="14" x2="7" y2="14" />
+                                <line x1="9" y1="8" x2="15" y2="8" />
+                                <line x1="17" y1="16" x2="23" y2="16" />
+                            </svg>
+                        </span>
+                        <select name="jailbreak" id="jailbreak">
+                            <option value="default" selected>Default Persona</option>
+                            <option value="gpt-math-1.0">Math Genius</option>
+                            <option value="gpt-dude-1.0">DUDE Mode</option>
+                            <option value="gpt-dan-1.0">DAN 1.0</option>
+                            <option value="gpt-dan-2.0">DAN 2.0</option>
+                            <option value="gpt-dev-2.0">Developer Mode</option>
+                            <option value="gpt-evil-1.0">Creative Unhinged</option>
+                        </select>
+                    </div>
+
+                    <!-- Delete Active Chat Button -->
+                    <button type="button" id="header-delete-btn" class="header-delete-btn" title="Delete this conversation from database" onclick="delete_current_conversation()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                        <span>Delete Chat</span>
+                    </button>
+
+                    <!-- Theme Selector -->
+                    <form class="color-picker" action="" title="Theme Selector">
+                        <fieldset>
+                            <legend class="visually-hidden">Pick a color scheme</legend>
+                            <label for="dark" class="theme-label" title="Obsidian Dark"></label>
+                            <input type="radio" title="dark" name="theme" id="dark" checked>
+
+                            <label for="blue" class="theme-label" title="Sapphire Blue"></label>
+                            <input type="radio" title="blue" id="blue" name="theme">
+
+                            <label for="green" class="theme-label" title="Emerald Green"></label>
+                            <input type="radio" title="green" id="green" name="theme">
+
+                            <label for="pink" class="theme-label" title="Cyber Pink"></label>
+                            <input type="radio" title="pink" id="pink" name="theme">
+
+                            <label for="light" class="theme-label" title="Clean Light"></label>
+                            <input type="radio" title="light" name="theme" id="light">
+                        </fieldset>
+                    </form>
+                </div>
+            </header>
+
+            <!-- Message Stream Area -->
+            <div class="messages-container" id="messages-wrapper">
+                <div class="box" id="messages">
+                    <!-- Welcome Hero State (visible when chat is new) -->
+                    <div id="welcome-state" class="welcome-screen">
+                        <div class="welcome-badge">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff">
+                                <path
+                                    d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1683a.071.071 0 0 1 .038.052v5.5826a4.5045 4.5045 0 0 1-4.4945 4.4947zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1683a.0757.0757 0 0 1-.071 0l-4.8303-2.7866A4.504 4.504 0 0 1 2.3408 7.8956zm16.0993 3.8558L12.5973 8.3829l2.0201-1.1683a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.388-.6813zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.407 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.6608v.0033zm-7.0006 1.543l-3.3685-1.9442 3.3685-1.9442 3.3685 1.9442z" />
+                            </svg>
+                        </div>
+                        <h1 class="welcome-title">How can I help you today?</h1>
+                        <p class="welcome-subtitle">Powered by OpenAI's fast, highly capable <strong>GPT-4o
+                                mini</strong></p>
+
+                        <div class="prompt-grid">
+                            <div class="prompt-card"
+                                onclick="useStarterPrompt('Explain quantum computing in simple terms with a real-world analogy.')">
+                                <div class="prompt-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M9 18h6" />
+                                        <path d="M10 22h4" />
+                                        <path
+                                            d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z" />
+                                    </svg></div>
+                                <div class="prompt-content">
+                                    <span class="prompt-title">Explain a concept</span>
+                                    <span class="prompt-desc">Quantum computing explained simply</span>
+                                </div>
+                            </div>
+                            <div class="prompt-card"
+                                onclick="useStarterPrompt('Write a clean, resilient Python function to fetch and parse JSON from a REST API.')">
+                                <div class="prompt-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="16 18 22 12 16 6" />
+                                        <polyline points="8 6 2 12 8 18" />
+                                    </svg></div>
+                                <div class="prompt-content">
+                                    <span class="prompt-title">Write or debug code</span>
+                                    <span class="prompt-desc">Resilient Python REST API client</span>
+                                </div>
+                            </div>
+                            <div class="prompt-card"
+                                onclick="useStarterPrompt('Draft a concise, professional follow-up email after a job interview.')">
+                                <div class="prompt-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <rect width="20" height="16" x="2" y="4" rx="2" />
+                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                    </svg></div>
+                                <div class="prompt-content">
+                                    <span class="prompt-title">Draft professional email</span>
+                                    <span class="prompt-desc">Follow-up after a technical interview</span>
+                                </div>
+                            </div>
+                            <div class="prompt-card"
+                                onclick="useStarterPrompt('Brainstorm 5 innovative feature ideas for an AI-powered productivity app.')">
+                                <div class="prompt-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path
+                                            d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                                        <path
+                                            d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                                    </svg></div>
+                                <div class="prompt-content">
+                                    <span class="prompt-title">Brainstorm ideas</span>
+                                    <span class="prompt-desc">5 unique AI productivity features</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stop Generating Pill -->
+            <div class="stop_generating stop_generating-hidden">
+                <button id="cancelButton">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5">
+                        <rect width="18" height="18" x="3" y="3" rx="2" />
+                    </svg>
+                    <span>Stop Generating</span>
+                </button>
+            </div>
+
+            <!-- Floating Input Dock -->
+            <footer class="input-dock">
+                <div class="input-card">
+                    <!-- Attachment Preview Dock (Appears when image or document is attached) -->
+                    <div id="image-preview-dock" class="image-preview-dock" style="display: none;">
+                        <!-- Image Preview Thumbnail -->
+                        <div id="image-preview-card" class="preview-thumbnail-card" style="display: none;">
+                            <img id="preview-image" src="" alt="Attached image preview">
+                            <button type="button" id="remove-image-btn" class="remove-preview-btn" title="Remove attached image" onclick="clearImageAttachment()">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                        </div>
+                        <!-- Document Preview Card -->
+                        <div id="document-preview-card" class="preview-doc-card" style="display: none;">
+                            <div class="preview-doc-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                </svg>
+                            </div>
+                            <div class="preview-doc-details">
+                                <span id="preview-doc-name" class="preview-doc-name">document.pdf</span>
+                                <span id="preview-doc-size" class="preview-doc-size">0 KB</span>
+                            </div>
+                            <button type="button" id="remove-doc-btn" class="remove-preview-btn" title="Remove attached document" onclick="clearDocumentAttachment()">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="box input-box">
+                        <!-- Hidden Image File Input -->
+                        <input type="file" id="image-upload" accept="image/png, image/jpeg, image/webp, image/gif" style="display: none;" onchange="handleImageFileSelect(event)">
+                        
+                        <!-- Hidden Document File Input -->
+                        <input type="file" id="document-upload" accept=".pdf, .docx, .doc, .txt, .md, .markdown, .csv, .json, .py, .js, .ts, .html, .css, .xml, .yaml, .yml, .log, text/*" style="display: none;" onchange="handleDocumentFileSelect(event)">
+
+                        <!-- Attach Image Button -->
+                        <button type="button" id="attach-button" class="attach-btn" title="Attach image" aria-label="Attach Image" onclick="document.getElementById('image-upload').click()">
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                                <circle cx="9" cy="9" r="2"/>
+                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                            </svg>
+                        </button>
+
+                        <!-- Attach Document Button -->
+                        <button type="button" id="doc-attach-button" class="attach-btn" title="Attach document (PDF, DOCX, TXT, CSV, Code)" aria-label="Attach Document" onclick="document.getElementById('document-upload').click()">
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                            </svg>
+                        </button>
+
+                        <textarea id="message-input" placeholder="Message ChatGPT or attach an image / document..." cols="30" rows="1"
+                            oninput="resizeTextarea(this)"></textarea>
+
+                        <div class="input-actions">
+                            <button id="send-button" title="Send message" aria-label="Send Message">
+                                <!-- Crisp SVG Arrow-up icon inside Enter circle -->
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090a10"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                                    <polyline points="5 12 12 5 19 12"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-footer-note">
+                    ChatGPT can make mistakes. Verify important info.
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Mobile Drawer Overlay -->
+    <div class="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
+
+    <script>
+        function useStarterPrompt(promptText) {
+            const input = document.getElementById('message-input');
+            if (input) {
+                input.value = promptText;
+                resizeTextarea(input);
+                if (typeof handle_ask === 'function') {
+                    handle_ask();
+                }
+            }
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.querySelector('.conversations');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const btn = document.querySelector('.mobile-sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('shown');
+                if (overlay) overlay.classList.toggle('active');
+                if (btn) btn.classList.toggle('rotated');
+            }
+        }
+
+        async function handleLogout() {
+            try {
+                await fetch('/backend-api/v2/auth/logout', { method: 'POST' });
+            } catch (e) { }
+            localStorage.clear();
+            window.location.href = '/login';
+        }
+    </script>
+</body>
+
+</html>

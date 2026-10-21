@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT • Sign in</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(18, 20, 29, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px 36px;
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .auth-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: var(--accent-gradient, linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.35);
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 13px 14px 13px 42px;
+            background: rgba(26, 29, 44, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #f8fafc;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .auth-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+            background: rgba(30, 34, 52, 0.95);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 13px;
+            border-radius: 12px;
+            background: var(--accent-gradient, linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%));
+            border: none;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.5);
+        }
+
+        .auth-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .auth-switch {
+            text-align: center;
+            font-size: 13.5px;
+            color: #94a3b8;
+            margin-top: 22px;
+        }
+
+        .auth-switch a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 4px;
+            cursor: pointer;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-box {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 18px;
+            display: none;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .database-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 20px;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+
+        .db-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 6px #22c55e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <!-- OpenAI Sparkle Logo -->
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1683a.071.071 0 0 1 .038.052v5.5826a4.5045 4.5045 0 0 1-4.4945 4.4947zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1683a.0757.0757 0 0 1-.071 0l-4.8303-2.7866A4.504 4.504 0 0 1 2.3408 7.8956zm16.0993 3.8558L12.5973 8.3829l2.0201-1.1683a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.388-.6813zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.407 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.6608v.0033zm-7.0006 1.543l-3.3685-1.9442 3.3685-1.9442 3.3685 1.9442z" />
+                    </svg>
+                </div>
+                <h1 class="auth-title" id="auth-title">Welcome back</h1>
+                <p class="auth-subtitle" id="auth-subtitle">Log in to ChatGPT to continue</p>
+            </div>
+
+            <div class="alert-box" id="alert-box"></div>
+
+            <form class="auth-form" id="auth-form" onsubmit="handleAuthSubmit(event)">
+                <div class="form-group" id="name-group" style="display: none;">
+                    <label class="form-label" for="name">Full Name</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </span>
+                        <input class="auth-input" type="text" id="name" placeholder="Piyush Goenka" autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email address</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                        </span>
+                        <input class="auth-input" type="email" id="email" placeholder="name@example.com" required
+                            autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </span>
+                        <input class="auth-input" type="password" id="password" placeholder="••••••••" required
+                            autocomplete="current-password" minlength="6">
+                    </div>
+                </div>
+
+                <button class="auth-btn" type="submit" id="submit-btn">
+                    <span id="btn-text">Log in</span>
+                </button>
+            </form>
+
+            <div class="auth-switch">
+                <span id="switch-prompt">Don't have an account?</span>
+                <a id="switch-link" onclick="toggleAuthMode()">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = "{{mode}}" === "register" ? "register" : "login";
+
+        function updateUI() {
+            const title = document.getElementById("auth-title");
+            const subtitle = document.getElementById("auth-subtitle");
+            const btnText = document.getElementById("btn-text");
+            const switchPrompt = document.getElementById("switch-prompt");
+            const switchLink = document.getElementById("switch-link");
+            const alertBox = document.getElementById("alert-box");
+            const nameGroup = document.getElementById("name-group");
+            const nameInput = document.getElementById("name");
+
+            alertBox.style.display = "none";
+
+            if (currentMode === "register") {
+                title.innerText = "Create your account";
+                subtitle.innerText = "Start chatting with GPT-4o mini today";
+                btnText.innerText = "Create Account";
+                switchPrompt.innerText = "Already have an account?";
+                switchLink.innerText = "Log in";
+                document.title = "ChatGPT • Create Account";
+                if (nameGroup) nameGroup.style.display = "flex";
+                if (nameInput) nameInput.required = true;
+            } else {
+                title.innerText = "Welcome back";
+                subtitle.innerText = "Log in to ChatGPT to continue";
+                btnText.innerText = "Log in";
+                switchPrompt.innerText = "Don't have an account?";
+                switchLink.innerText = "Sign up";
+                document.title = "ChatGPT • Sign in";
+                if (nameGroup) nameGroup.style.display = "none";
+                if (nameInput) {
+                    nameInput.required = false;
+                    nameInput.value = "";
+                }
+            }
+        }
+
+        function toggleAuthMode() {
+            currentMode = currentMode === "login" ? "register" : "login";
+            updateUI();
+        }
+
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById("name");
+            const name = nameInput ? nameInput.value.trim() : "";
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const alertBox = document.getElementById("alert-box");
+            const submitBtn = document.getElementById("submit-btn");
+            const btnText = document.getElementById("btn-text");
+
+            alertBox.style.display = "none";
+            submitBtn.disabled = true;
+            btnText.innerText = "Please wait...";
+
+            const endpoint = currentMode === "register" ? "/backend-api/v2/auth/register" : "/backend-api/v2/auth/login";
+            const payload = currentMode === "register" ? { name, email, password } : { email, password };
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    alertBox.innerText = data.message || "An error occurred. Please try again.";
+                    alertBox.style.display = "block";
+                    submitBtn.disabled = false;
+                    btnText.innerText = currentMode === "register" ? "Create Account" : "Log in";
+                    return;
+                }
+
+                // Successful authentication
+                window.location.href = "/chat/";
+            } catch (err) {
+                alertBox.innerText = "Unable to connect to server. Please try again.";
+                alertBox.style.display = "block";
+                submitBtn.disabled = false;
+                btnText.innerText = currentMode === "register" ? "Create Account" : "Log in";
+            }
+        }
+
+        updateUI();
+    </script>
+</body>
+
+</html>
