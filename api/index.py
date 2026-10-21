@@ -40,6 +40,14 @@ if os.getenv('SECRET_KEY'):
     config['secret_key'] = os.getenv('SECRET_KEY')
     app.secret_key = os.getenv('SECRET_KEY')
 
+# Guarantee default values for all expected keys
+config.setdefault('openai_key', os.getenv('OPENAI_API_KEY', ''))
+config.setdefault('openai_api_base', os.getenv('OPENAI_API_BASE', 'https://api.openai.com'))
+config.setdefault('mongo_uri', os.getenv('MONGO_URI', ''))
+config.setdefault('mongo_db', os.getenv('MONGO_DB', 'chatgpt_clone'))
+config.setdefault('secret_key', os.getenv('SECRET_KEY', 'chatgpt-clone-super-secure-session-key-2026'))
+config.setdefault('proxy', {'enable': False})
+
 # Register website pages
 site = Website(app)
 for route, route_info in site.routes.items():

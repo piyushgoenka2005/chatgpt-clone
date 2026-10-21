@@ -13,18 +13,25 @@ def get_ist_now_str():
 
 
 class Database:
-    def __init__(self, uri: str, db_name: str = "chatgpt_clone"):
-        self.client = MongoClient(uri, serverSelectionTimeoutMS=8000)
-        self.db = self.client[db_name]
-        self.users = self.db["users"]
-        self.conversations = self.db["conversations"]
+    def __init__(self, uri: str = "", db_name: str = "chatgpt_clone"):
+        self.client = None
+        self.db = None
+        self.users = None
+        self.conversations = None
         
+        if not uri:
+            return
+
         try:
+            self.client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+            self.db = self.client[db_name]
+            self.users = self.db["users"]
+            self.conversations = self.db["conversations"]
             self.users.create_index([("email", ASCENDING)], unique=True)
             self.conversations.create_index([("user_id", ASCENDING), ("updated_at", DESCENDING)])
             self.conversations.create_index([("conversation_id", ASCENDING)])
         except Exception as e:
-            print("Notice on Mongo indexes:", e)
+            print("Notice on Mongo initialization:", e)
 
     def register_user(self, name: str, email: str, password: str):
         email = email.strip().lower()
